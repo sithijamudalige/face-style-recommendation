@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
 function ImageUploader({ apiBaseUrl, onRecommendation }) {
-  const [previewUrl, setPreviewUrl] = useState('')
   const [status, setStatus] = useState('Upload an image to analyze.')
-  const safePreviewUrl = previewUrl.startsWith('blob:') ? previewUrl : ''
 
   const uploadImage = async (event) => {
     const file = event.target.files?.[0]
@@ -11,7 +9,6 @@ function ImageUploader({ apiBaseUrl, onRecommendation }) {
       return
     }
 
-    setPreviewUrl(URL.createObjectURL(file))
     setStatus('Analyzing uploaded image...')
 
     const formData = new FormData()
@@ -45,14 +42,6 @@ function ImageUploader({ apiBaseUrl, onRecommendation }) {
           className="mx-auto block text-sm"
         />
       </label>
-
-      {safePreviewUrl ? (
-        <img
-          src={safePreviewUrl}
-          alt="Uploaded preview"
-          className="max-h-56 w-full rounded-xl object-cover"
-        />
-      ) : null}
 
       <p className="text-sm text-slate-600">{status}</p>
     </div>
