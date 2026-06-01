@@ -1,0 +1,27 @@
+{
+  "faceShapes": {
+    "oval": ["Layered quiff", "Side part", "Pompadour"],
+    "round": ["Angular fringe", "High fade", "Spiky top"],
+    "square": ["French crop", "Buzz cut", "Classic taper"],
+    "diamond": ["Textured crop", "Messy fringe", "Side swept undercut"],
+    "heart": ["Medium layered waves", "Fringe with volume", "Tapered sides"]
+  },
+  "hairTypes": {
+    "straight": ["Slick back", "Layered side part"],
+    "wavy": ["Loose textured top", "Bro flow"],
+    "curly": ["Curly undercut", "Defined curls with taper"],
+    "coily": ["High top fade", "Twist sponge style"]
+  },
+  "beardByFaceShape": {
+    "oval": ["Short boxed beard", "5 o'clock shadow"],
+    "round": ["Goatee with trimmed cheeks", "Extended chin beard"],
+    "square": ["Circle beard", "Heavy stubble"],
+    "diamond": ["Full beard with volume on chin", "Anchor beard"],
+    "heart": ["Light stubble", "Balbo beard"]
+  },
+  "fashionBySkinTone": {
+    "fair": ["Navy and emerald tones", "Soft pastel layering", "Silver accessories"],
+    "medium": ["Earthy neutrals", "Olive and rust palettes", "Denim layering"],
+    "deep": ["Bold jewel tones", "Monochrome contrast fits", "Gold accessories"]
+  }
+}
