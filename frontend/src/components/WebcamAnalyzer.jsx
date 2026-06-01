@@ -13,14 +13,20 @@ function WebcamAnalyzer({ apiBaseUrl, onRecommendation }) {
     const init = async () => {
       try {
         await loadFaceApiModels()
-        setStatus('Models loaded. Start real-time analysis.')
+      } catch {
+        setStatus('Could not load face models. Check network and try again.')
+        return
+      }
 
+      setStatus('Models loaded. Start real-time analysis.')
+
+      try {
         stream = await navigator.mediaDevices.getUserMedia({ video: true })
         if (videoRef.current) {
           videoRef.current.srcObject = stream
         }
       } catch {
-        setStatus('Unable to access webcam or face models.')
+        setStatus('Webcam access denied or unavailable. Please allow camera.')
       }
     }
 

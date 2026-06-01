@@ -1,8 +1,8 @@
 const {
   getRecommendations,
   getNearestTone,
-  getDominantFaceShape,
-  getLikelyHairType,
+  mapToFaceShape,
+  mapToHairType,
 } = require('../utils/recommendations');
 
 const byteAverage = (buffer) => {
@@ -20,8 +20,8 @@ const byteAverage = (buffer) => {
 
 const buildAnalysisFromImage = (buffer) => {
   const average = byteAverage(buffer);
-  const shape = getDominantFaceShape(average);
-  const hairType = getLikelyHairType(average);
+  const shape = mapToFaceShape(average);
+  const hairType = mapToHairType(average);
 
   return {
     faceShape: shape,

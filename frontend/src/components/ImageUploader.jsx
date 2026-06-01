@@ -20,7 +20,17 @@ function ImageUploader({ apiBaseUrl, onRecommendation }) {
     })
 
     if (!response.ok) {
-      setStatus('Could not analyze image.')
+      let reason = `HTTP ${response.status}`
+      try {
+        const errorData = await response.json()
+        if (errorData?.message) {
+          reason = errorData.message
+        }
+      } catch {
+        // Keep HTTP status fallback.
+      }
+
+      setStatus(`Could not analyze image: ${reason}`)
       return
     }
 

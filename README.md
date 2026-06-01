@@ -76,3 +76,8 @@ VITE_API_URL=http://localhost:5000 npm run dev
 - Face shape, hair type, and skin tone extraction
 - Hairstyle, beard style, and fashion recommendations
 - Responsive Tailwind UI
+
+## Notes
+
+- Current face-shape, hair-type, and skin-tone scoring uses lightweight heuristic mapping for quick demos.
+- For production-grade precision, replace these heuristics with trained ML classifiers and calibrated color sampling.

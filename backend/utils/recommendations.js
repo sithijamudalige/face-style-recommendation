@@ -11,12 +11,12 @@ const getNearestTone = (brightness) => {
   return matched ? matched.tone : 'medium';
 };
 
-const getDominantFaceShape = (value) => {
+const mapToFaceShape = (value) => {
   const shapes = ['oval', 'round', 'square', 'diamond', 'heart'];
   return shapes[value % shapes.length];
 };
 
-const getLikelyHairType = (value) => {
+const mapToHairType = (value) => {
   const types = ['straight', 'wavy', 'curly', 'coily'];
   return types[value % types.length];
 };
@@ -47,6 +47,6 @@ const getRecommendations = ({ faceShape, hairType, skinColor }) => {
 module.exports = {
   getRecommendations,
   getNearestTone,
-  getDominantFaceShape,
-  getLikelyHairType,
+  mapToFaceShape,
+  mapToHairType,
 };
