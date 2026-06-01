@@ -1,0 +1,61 @@
+import { useState } from 'react'
+
+function ImageUploader({ apiBaseUrl, onRecommendation }) {
+  const [status, setStatus] = useState('Upload an image to analyze.')
+
+  const uploadImage = async (event) => {
+    const file = event.target.files?.[0]
+    if (!file) {
+      return
+    }
+
+    setStatus('Analyzing uploaded image...')
+
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const response = await fetch(`${apiBaseUrl}/api/analyze/upload`, {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (!response.ok) {
+      let reason = `HTTP ${response.status}`
+      try {
+        const errorData = await response.json()
+        if (errorData?.message) {
+          reason = errorData.message
+        }
+      } catch {
+        // Keep HTTP status fallback.
+      }
+
+      setStatus(`Could not analyze image: ${reason}`)
+      return
+    }
+
+    const data = await response.json()
+    onRecommendation(data)
+    setStatus('Analysis complete.')
+  }
+
+  return (
+    <div className="space-y-4">
+      <label className="block rounded-xl border border-dashed border-slate-300 p-6 text-center">
+        <span className="mb-2 block text-sm font-medium text-slate-700">
+          Choose an image file
+        </span>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={uploadImage}
+          className="mx-auto block text-sm"
+        />
+      </label>
+
+      <p className="text-sm text-slate-600">{status}</p>
+    </div>
+  )
+}
+
+export default ImageUploader
