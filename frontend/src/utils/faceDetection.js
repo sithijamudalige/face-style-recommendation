@@ -39,8 +39,42 @@ const estimateHairType = (landmarks) => {
   return 'coily'
 }
 
-const estimateSkinTone = (box) => {
-  const brightness = (box.width + box.height) % 255
+const estimateSkinTone = (videoElement, box) => {
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.max(Math.floor(box.width / 3), 1)
+  canvas.height = Math.max(Math.floor(box.height / 4), 1)
+
+  const context = canvas.getContext('2d', { willReadFrequently: true })
+  if (!context) {
+    return tones[1]
+  }
+
+  const sx = Math.max(Math.floor(box.x + box.width / 3), 0)
+  const sy = Math.max(Math.floor(box.y + box.height * 0.15), 0)
+  context.drawImage(
+    videoElement,
+    sx,
+    sy,
+    Math.max(Math.floor(box.width / 3), 1),
+    Math.max(Math.floor(box.height / 4), 1),
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+  )
+
+  const { data } = context.getImageData(0, 0, canvas.width, canvas.height)
+  let lumaTotal = 0
+  let pixels = 0
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i]
+    const g = data[i + 1]
+    const b = data[i + 2]
+    lumaTotal += 0.2126 * r + 0.7152 * g + 0.0722 * b
+    pixels += 1
+  }
+
+  const brightness = lumaTotal / Math.max(pixels, 1)
   if (brightness < 85) return tones[0]
   if (brightness < 140) return tones[1]
   return tones[2]
@@ -62,7 +96,7 @@ export const analyzeVideoFrame = async (videoElement) => {
   return {
     faceShape: estimateFaceShape(detection.landmarks),
     hairType: estimateHairType(detection.landmarks),
-    skinColor: estimateSkinTone(detection.detection.box),
+    skinColor: estimateSkinTone(videoElement, detection.detection.box),
     confidence: Number(detection.detection.score.toFixed(2)),
   }
 }

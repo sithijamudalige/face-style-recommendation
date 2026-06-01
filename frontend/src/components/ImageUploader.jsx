@@ -3,6 +3,7 @@ import { useState } from 'react'
 function ImageUploader({ apiBaseUrl, onRecommendation }) {
   const [previewUrl, setPreviewUrl] = useState('')
   const [status, setStatus] = useState('Upload an image to analyze.')
+  const safePreviewUrl = previewUrl.startsWith('blob:') ? previewUrl : ''
 
   const uploadImage = async (event) => {
     const file = event.target.files?.[0]
@@ -45,9 +46,9 @@ function ImageUploader({ apiBaseUrl, onRecommendation }) {
         />
       </label>
 
-      {previewUrl ? (
+      {safePreviewUrl ? (
         <img
-          src={previewUrl}
+          src={safePreviewUrl}
           alt="Uploaded preview"
           className="max-h-56 w-full rounded-xl object-cover"
         />

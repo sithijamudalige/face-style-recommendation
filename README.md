@@ -32,7 +32,7 @@ frontend/
 ### 1) Backend
 
 ```bash
-cd /tmp/workspace/sithijamudalige/face-style-recommendation/backend
+cd backend
 npm install
 npm run dev
 ```
@@ -42,7 +42,7 @@ Backend runs on `http://localhost:5000`.
 ### 2) Frontend
 
 ```bash
-cd /tmp/workspace/sithijamudalige/face-style-recommendation/frontend
+cd frontend
 npm install
 npm run dev
 ```
